@@ -1,0 +1,62 @@
+
+service: portfolio
+frameworkVersion: '2'
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: ap-south-1
+  lambdaHashingVersion: 20201221
+  memorySize: 1024
+  timeout: 900
+
+custom:
+  config: ${file(./config.json)}
+
+functions:
+  tradesManagement:
+    handler: tradesManagement.invoke
+    timeout: 30
+    events:
+      - http:
+          path: trade/add
+          method: post
+          integration: lambda
+      - http:
+          path: trade/update
+          method: post
+          integration: lambda
+      - http:
+          path: trade/remove
+          method: post
+          integration: lambda
+      - http:
+          path: trade/fetch
+          method: get
+          integration: lambda
+
+  securitiesManagement:
+    handler: securityManagement.invoke
+    timeout: 30
+    events:
+      - http:
+          path: security/add
+          method: post
+          integration: lambda
+
+  portfolioManagement:
+    handler: portfolioManagement.invoke
+    timeout: 30
+    events:
+      - http:
+          path: portfolio/fetch
+          method: get
+          integration: lambda
+      - http:
+          path: portfolio/returns
+          method: get
+          integration: lambda

@@ -1,0 +1,6 @@
+{
+    "host" : "smallcase.czhc7aas40hk.ap-south-1.rds.amazonaws.com",
+    "user" : "admin",
+    "password": "smallcase123",
+    "database": "smallcase"
+}
